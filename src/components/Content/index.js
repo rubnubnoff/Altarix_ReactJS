@@ -1,27 +1,39 @@
 import React from 'react';
 import Message from './Message';
 
-class Content extends React.Component{
-    render(){
+
+class Content extends React.Component {
+    scrollToBottom = () => {
+        this.messagesEnd.scrollTop = this.messagesEnd.scrollHeight;
+    }
+    componentDidMount() {
+        this.scrollToBottom();
+    }
+    componentDidUpdate() {
+        this.scrollToBottom();
+    }
+    render() {
+        const messages = this.props.messages.map(message => {
+            return <Message 
+                key = { message.id }
+                name = { message.name }
+                text = { message.text }
+                isOutgoing = { message.isOutgoing }        
+            />;
+        });
         return (
-            <div className={'content'}>
-                <Message 
-                    className={'userMessage'} 
-                    text={'Привет'}
-                    name={'Ivan Ivanov'}
-                />
-                <Message 
-                    className={'userMessage'}
-                    text={'Как дела с Java-script?'}
-                    name={'Ivan Ivanov'}
-                />
-                <Message
-                    className={'myMessage'} 
-                    text={'((('}
-                />
+            <div className = 'content'>
+                <div 
+                    className = 'content_container'
+                    ref = {(el) => { this.messagesEnd = el }}
+                >
+                    {messages}
+                </div>
             </div>
         );
     }
+    
 }
 
 export default Content;
+
