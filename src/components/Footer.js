@@ -4,31 +4,37 @@ class Footer extends React.Component{
     state = {
         value: ''
     }
-    updateValue(e) {
+    updateValue = (e) => {
         this.setState({ value: e.target.value });
     }
     handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault();  
         if(this.state.value){
-            this.props.addMessage({
+            const message = {
                 id: Date.now(),
-                name: '',
-                text: this.state.value,
-                isOutgoing: Math.round(Math.random()) ? true : false
-            }); 
+                name: 'Александр Самсонов',
+                text: this.state.value
+            };
             this.setState({ value: '' });
+            this.props.sendMessage(message);
         }     
+    }
+    handleInput = (e) => {
+        if((e.keyCode === 13) && e.ctrlKey) {
+            e.target.value += '\n';
+        }
     }
     render(){
         return <footer className={'footer'}>
-            <form className='send_form' onSubmit = {this.handleSubmit.bind(this)}>
-                <input 
+            <form className='send_form' onSubmit = {this.handleSubmit}>
+                <textarea
                     className = 'send_area'
                     value = {this.state.value}
                     placeholder = 'Введите ваше сообщение...'
-                    onChange = {this.updateValue.bind(this)}
+                    onChange = {this.updateValue}
+                    onKeyDown = {this.handleInput}
                 >
-                </input>
+                </textarea>
                 <input 
                     className = 'send_button'
                     type = 'submit'

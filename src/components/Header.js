@@ -1,11 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-class Header extends React.Component{
-    render(){
-        return(
-            <header className={'header'}>{this.props.name}</header>
-        );
-    }
+const Header = React.memo(function Header({name}){
+    return(
+        <header className={'header'}>{name}</header>
+    );
+});
+
+Header.propTypes = {
+    name: PropTypes.string
 }
-
 export default Header;

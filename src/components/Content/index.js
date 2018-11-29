@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Message from './Message';
 
 
@@ -11,15 +12,13 @@ class Content extends React.Component {
     }
     componentDidUpdate() {
         this.scrollToBottom();
-        console.log(this.props.messages);
     }
     render() {
         const messages = this.props.messages.map(message => {
             return <Message 
                 key = { message.id }
                 name = { message.name }
-                text = { message.text }
-                isOutgoing = { message.isOutgoing }        
+                text = { message.text }       
             />;
         });
         return (
@@ -32,9 +31,13 @@ class Content extends React.Component {
                 </div>
             </div>
         );
-    }
-    
+    }  
 }
+
+Content.propTypes = {
+    messages: PropTypes.arrayOf(PropTypes.object)
+};
+
 
 export default Content;
 

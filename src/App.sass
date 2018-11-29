@@ -6,6 +6,7 @@ body
 .header 
     position: fixed
     top: 0
+    z-index: 1
     height: 40px
     width: 100%
     padding-left: 20px
@@ -29,7 +30,7 @@ body
     overflow-y: auto
 .userMessage, .myMessage
     min-height: 40px
-    margin-bottom: 20px
+    margin-bottom: 35px
     display: flex
 .userMessage
     margin-left: 20px
@@ -38,16 +39,24 @@ body
     flex-direction: row-reverse
     margin-right: 20px
 .userMessage_avatar, .myMessage_avatar
-    max-width: 80px
+    position: relative  
+    width: 80px
     margin-right: 20px
     font-size: 14px
-    word-wrap: break-word
+    // word-wrap: break-word
     text-align: center
     img
         display: block
         width: 40px
         margin: 0 auto
         border-radius: 20px
+    span
+        position: absolute
+        left: 0
+        width: 100%
+.myMessage_avatar
+    span
+        display: none
 .userMessage_text, .myMessage_text
     min-width: 100px
     max-width: 300px
