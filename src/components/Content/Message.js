@@ -4,6 +4,7 @@ import image from '../../images/Avatar.jpg'
 
  const Message = React.memo(function Message({name, text}) {
     const messageClass = name !== 'Александр Самсонов' ? 'userMessage' : 'myMessage';
+    if(typeof text !== 'string' || typeof name !== 'string') return;
     return (
         <div className = {messageClass}>
             <div className = {`${messageClass}_avatar`}>
@@ -19,8 +20,5 @@ Message.propTypes = {
     name: PropTypes.string,
     text: PropTypes.string
 };
-Message.defaultPpors = {
-    name: 'User'
-}
 
 export default Message;

@@ -1,27 +1,29 @@
 import React from 'react';
+import { writeMessage } from '../js/actions';
+import { connect } from 'react-redux';
 
 class Footer extends React.Component{
-    state = {
-        value: ''
-    }
     updateValue = (e) => {
-        this.setState({ value: e.target.value });
+        this.props.writeMessage(e.target.value);
     }
     handleSubmit = (e) => {
         e.preventDefault();  
-        if(this.state.value){
+        if(this.props.newMessage){
             const message = {
                 id: Date.now(),
                 name: 'Александр Самсонов',
-                text: this.state.value
+                text: this.props.newMessage
             };
-            this.setState({ value: '' });
+            this.props.writeMessage('');
             this.props.sendMessage(message);
+            
         }     
     }
     handleInput = (e) => {
         if((e.keyCode === 13) && e.ctrlKey) {
             e.target.value += '\n';
+        } else if((e.keyCode === 13) && !e.ctrlKey) {
+            this.handleSubmit(e);
         }
     }
     render(){
@@ -29,7 +31,7 @@ class Footer extends React.Component{
             <form className='send_form' onSubmit = {this.handleSubmit}>
                 <textarea
                     className = 'send_area'
-                    value = {this.state.value}
+                    value = {this.props.newMessage}
                     placeholder = 'Введите ваше сообщение...'
                     onChange = {this.updateValue}
                     onKeyDown = {this.handleInput}
@@ -46,4 +48,12 @@ class Footer extends React.Component{
     }
 }
 
-export default Footer;
+const mapStateToProps = state => ({
+    newMessage: state.newMessage
+});
+
+const mapDispatchToProps = dispatch => ({
+    writeMessage: message => dispatch(writeMessage(message))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Footer);

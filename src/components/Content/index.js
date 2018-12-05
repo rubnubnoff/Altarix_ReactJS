@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Message from './Message';
 
 
+
 class Content extends React.Component {
     scrollToBottom = () => {
         this.messagesEnd.scrollTop = this.messagesEnd.scrollHeight;
